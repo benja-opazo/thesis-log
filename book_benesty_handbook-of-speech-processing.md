@@ -135,7 +135,7 @@ The objective of forward LPC is to predict the value of the sample $x(k)$ from i
 \begin{align}
     e_{f,L} &= x(k) - \hat{x}(k) \\
             &= x(k) - \sum_{l=1}^{L}a_{L,l} x(k-l) \\
-            &= x(k) - a_{L}^{T}\mathbf{x}(k-1)
+            &= x(k) - a_{L}^{T}\mathbf{x_L}(k-1)
 \end{align}
 
 Where $\hat{x}(k)$ is the predicted sample, the forward predictor $\mathbf{a}_L$ is a vector of length L, and is given by
@@ -146,15 +146,15 @@ $$\mathbf{a}_L =
 \end{matrix}
 $$
 
-and $\mathbf{x}(k-1)$ is a vector containing the $L$ most recent samples and is given by
+and $\mathbf{x_L}(k-1)$ is a vector containing the $L$ most recent samples and is given by
 
-$$\mathbf{x}(k-1) = 
+$$\mathbf{x_L}(k-1) = 
 \begin{matrix}
     [x(k-1) & x(k-2) & \cdots & x(k-L)]^T
 \end{matrix}
 $$
 
-Note that the vector $\mathbf{x}(k-1)$ includes $x(k-1)$.
+Note that the vector $\mathbf{x_L}(k-1)$ includes $x(k-1)$.
 
 The objective is to **minimize the mean-square error** (MSE) that is given by
 
@@ -164,4 +164,90 @@ That is, the expectation of the square of the error as defined previously. To mi
 
 $$\mathbf{R}_L\mathbf{a}_{o,L} = \mathbf{r}_{f,L}$$
 
-where $\mathbf{a}_{o,L}$ is the _optimal_ forward predictor
+where $\mathbf{a}_{o,L}$ is the _optimal_ forward predictor. Where $\mathbf{R}_L$ is the correlation matrix and is given by
+
+\begin{align}
+    \mathbf{R}_L 
+    &= \mathbf{E} \{ \mathbf{x}_L(k-1) \mathbf{x}^T_L(k-1) \} = \mathbf{E} \{ \mathbf{x}_L(k)\mathbf{x}^T_L(k) \} \\
+    &= \left[ \begin{matrix}
+            r(0) & r(1) & \cdots & r(L-1) \\
+            r(1) & (r=) & \cdots & r(L-2) \\
+            \vdots & \vdots & \ddots & \vdots \\
+            r(L-1) & r(L-2) & \cdots & r(0)    
+        \end{matrix} \right]
+\end{align}
+
+And $\mathbf{r}_{f,L}$ is the correlation vector and is given by
+
+$$ \mathbf{r}_{f,L}
+= \mathbf{E} [ \mathbf{x}_L(k-1) x(k)]
+= \left[ \begin{matrix}
+    r(1) & r(2) & \cdots & r(L)
+  \end{matrix} \right]
+$$
+
+Assuming a nonsingular correlation matrix (so we can invert it), the forward predictor is given by
+
+$$ \mathbf{a}_{o,L} = \mathbf{R}^{-1}_{L} \mathbf{r}_{f,L} $$
+
+The minimum mean-square error (MMSE) is given by
+
+\begin{align}
+    \mathbf{J}_{f,min}
+    &= \mathbf{J}_f(\mathbf{a}_{o,L}) \\
+    &= r(0) - \mathbf{r}^{T}_{f,L} \mathbf{a}_{o,L} = E_{f,L}
+\end{align}
+
+### Backward Linear Prediction
+
+The objective of Backward LPC is to predict past values of a signal, that is $x(k-L)$ given its future values ($x(k), x(k-1), \cdots, x(k-L+1)$).
+
+The backward prediction error is defined as
+
+\begin{align}
+    e_{b,L}(k)
+    &= x(k-L) - \hat{x}(k-L) \\
+    &= x(k-L) - \sum_{l=1}^{L} b_{L,l} x(k-l+1) \\
+    &= x(k-L) - \mathbf{b}^{T}_{L} \mathbf{x}_L(k)
+\end{align}
+
+Where $\hat{x}(k)$ is the predicted sample, the backward predictor $\mathbf{b}_L$ is a vector of length L, and is given by
+
+$$\mathbf{a}_L =
+\begin{matrix}
+    [b_{L,1} & b_{L,2} & \cdots & b_{L,L}]^T
+\end{matrix}
+$$
+
+and $\mathbf{x_L}(k-1)$ is a vector containing the $L$ most recent samples and is given by
+
+$$\mathbf{x_L}(k-1) = 
+\begin{matrix}
+    [x(k-1) & x(k-2) & \cdots & x(k-L)]^T
+\end{matrix}
+$$
+
+Following the same procedure as the forward linear predictor, we optain the optimal backward predictor coefficients as
+
+$$\mathbf{b}_{o,L} = \mathbf{R}_{L}^{-1} \mathbf{r}_{b,L}$$
+
+The MMSE of the backward prediction is given by
+
+\begin{align}
+    \mathbf{J}_{b,min}
+    &= \mathbf{J_{b}(\mathbf{b}_{o,L})} \\
+    &= r(0) - \mathbf{r}^{T}_{b,L}\mathbf{b}_{0,L}
+    = E_{b,l}
+\end{align}
+
+## 7 Homomorphic Systems and Cepstrum Analysis of Speech
+
+>We define **Cepstrum** as
+>
+> $$ c[n] = \frac{1}{2\pi} \int_{-pi}^{pi} \log |X(e^{j \omega})| e^{j\omega n} d\omega$$
+
+Note that this is the **Inverse Discrete Fourier Transform** of the **logarithm** of the **magnitude** of the **Discrete Time Fourier Transform** of the signal.
+
+Note that the power of the exponential in the integral is positive, that happens because we are calculating an **inverse** DTFT with the integral.
+
+> We define **quefrency** as the independent variable of the cepstrum, that is, the _n_ in $c[n]$. Note that this variable could be associated as a time variable, after all, is the independent variable of an IDTFT.
