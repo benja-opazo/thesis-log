@@ -114,3 +114,8 @@ Analysis of variance (ANOVA) ([Link](https://en.wikipedia.org/wiki/Analysis_of_v
     * Using a bilinear formulation such as seen in [time-frequency analysis](https://en.wikipedia.org/wiki/Bilinear_time%E2%80%93frequency_distribution), $S_1(e^{j \omega})$ can be expressed in terms of $\omega$ and $\eta$, as follows $$S \left( \omega - \frac{\eta}{2} \right) S^* \left( \omega + \frac{\eta}{2} \right)$$ Where $\omega$ corresponds to the acoustic frequency of the signal and $\eta$ can express symmetric translation of that frequency (as a consequence of modulation).
     * A sufficient condition for the ideal modulation frequency versus acoustic frequency distribution is $$ P_{ideal}(\eta, \omega) = \left\{S\left( \omega - \frac{\eta}{2} \right) S^* \left( \omega + \frac{\eta}{2} \right) \phi_m(\eta) \right\} * \phi_c(\omega) $$ Where $\phi_m(\eta)$ is a multiplicative kernel in $\eta$ and $\phi_c(\omega)$ is a convolutional kernel in $\omega$
 
+## Week 5 (13/04/2020)
+
+1. J Benesty, M. Mohan, Y. Huang - [Handbook of Speech Processing](./64WRtla6ROOu8VlVHRvDXQ)
+    * Chapter 7 (cont.)
+    * Chapter 9
