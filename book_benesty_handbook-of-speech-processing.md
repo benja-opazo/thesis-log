@@ -80,7 +80,9 @@ The within channel analysis has the following relevant phenomena:
 *  **Below 1 KHz**: The temporal fine structure of the bandpass channel is coded in the auditory nerve. **The Signal phase can be exploited during central processing stages**
 *  **Over 1 KHz**: Primarily the envelope of the signal is extracted and analyzed. **The ear is comparatively phase deaf above 1 KHz**.
 
-![Signal Processing Auditory System](http://files.benjagueno.cl/images/book_benesty_handbook-of-speech-processing_chap4_signal-processing-auditory-system.png =429x600)
+ <img src="http://files.benjagueno.cl/images/book_benesty_handbook-of-speech-processing_chap4_signal-processing-auditory-system.png" alt="Nature" class="responsive" style="max-width:70%"> 
+ 
+
 
 ### 4.2 Acoustical Information Required for Speech Perception
 
@@ -240,7 +242,9 @@ The MMSE of the backward prediction is given by
     = E_{b,l}
 \end{align}
 
-## 7 Homomorphic Systems and Cepstrum Analysis of Speech
+## 9 Homomorphic Systems and Cepstrum Analysis of Speech
+
+### Cepstrum
 
 >We define **Cepstrum** as
 >
@@ -251,3 +255,66 @@ Note that this is the **Inverse Discrete Fourier Transform** of the **logarithm*
 Note that the power of the exponential in the integral is positive, that happens because we are calculating an **inverse** DTFT with the integral.
 
 > We define **quefrency** as the independent variable of the cepstrum, that is, the _n_ in $c[n]$. Note that this variable could be associated as a time variable, after all, is the independent variable of an IDTFT.
+
+### Homomorphic Systems
+
+[Homomorphic systems](https://en.wikipedia.org/wiki/Homomorphic_filtering) are **non-linear** systems that can be mapped non-linearly to a different domain in order to attain some linear systems characteristics, most notably the **superposition**. In simpler terms, homomorphic systems are nonlinear systems that _transforms a combination by convolution into a corresponding combination by addition_.
+
+> The operator $D_*\{\,\}$ is called the **characteristic system** for convolution and $D^{-1}_* \{\,\}$ is its inverse.
+
+The characteristic system **transforms a combination by convolution into a corresponding combination by addition**
+
+$$x[n] = x_1[n]*x_2[n] \iff \hat{x}[n] = \hat{x}_1[n] + \hat{x}_2[n]$$
+
+Where
+
+$$\hat{x}[n] = D_*\{ x[n] \}$$
+
+Conversely, the inverse characteristic system must transform a sum into a convolution, by satisfying
+
+$$H\{ x_1[n]*x_2[n] \} = H\{ x_1[n]\} * H\{ x_2[n] \} = y_1[n] * y_2[n]$$
+
+Where $H$ corresponds to the following system
+
+![Homomorphic system](https://files.benjagueno.cl/images/book_benesty_handbook-of-speech-processing_chap9_homomorphic_system.png "Homomorphic System")
+
+Note that $L\{\,\}$ can be any linear system
+
+The characteristic system can be represented by the following set of equations
+
+\begin{align}
+    X(e^{j\omega}) &= \sum_{n=-\infty}^{\infty} x[n] e^{-j \omega n} \\
+    \hat{X}(e^{j\omega}) &= \log[X(e^{j\omega})] \\
+    \hat{x}[n] &= \frac{1}{2\pi} \int_{-\pi}^{\pi} \hat{X}(e^{j\omega})e^{j\omega n}d\omega
+\end{align}
+
+Where the $\log$ operation is the complex logarithm defined as
+
+$$\log[a + jb] = \log|a| + j \arg \{a + jb\} $$
+
+And the $\arg\{ \, \}$ operator is the phase of the complex number.
+
+The cascading of the previously defined operations has the desired property of turning convolution into addition ($D_*\{\,\}$), and conversely, by using complex exponential instead of complex $\log$, the inverse characteristic system is attained ($D^{-1}_*\{\,\}$).
+
+![Characteristic](https://files.benjagueno.cl/images/book_benesty_handbook-of-speech-processing_chap9_characterisic_system.png "Characteristic System" =x390)
+
+> Note that these definitions are closely related to the Cepstrum definition, and for that reason, the output of the characteristic system is called the **complex spectrum**.
+
+If $x[n]$ is real, then $\hat{x}[n]$ is also real, hence, the complex spectrum is not necessarily complex, but it is named after the _complex logarithm_ that plays an important role in this definition.
+
+The relationship between the Cepstrum and the Complex Cepstrum is given by
+
+$$ c[n] = \text{Ev}\{\hat{x}[n]\} = \frac{\hat{x}[n] + \hat{x}[n]}{2}$$
+
+Where $\text{Ev} \{ \, \}$ represents the even part of the function.
+
+That means that **the Cepstrum is the even part of the Complex Cepstrum**
+
+### Numerical Computation
+:::info
+I Should read section 9.1.3 when (if) needed
+:::
+
+### Discrete-Time Model for Speech Production
+
+
