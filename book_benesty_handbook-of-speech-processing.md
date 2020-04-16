@@ -81,8 +81,6 @@ The within channel analysis has the following relevant phenomena:
 *  **Over 1 KHz**: Primarily the envelope of the signal is extracted and analyzed. **The ear is comparatively phase deaf above 1 KHz**.
 
  <img src="http://files.benjagueno.cl/images/book_benesty_handbook-of-speech-processing_chap4_signal-processing-auditory-system.png" alt="Nature" class="responsive" style="max-width:70%"> 
- 
-
 
 ### 4.2 Acoustical Information Required for Speech Perception
 
@@ -90,7 +88,7 @@ The within channel analysis has the following relevant phenomena:
 
 SI can be represented as a function of speech level L (measured in dB) of the speech signal or to the speech-to-noise ratio (SNR, measured in dB).
 
-$$ SI(L) = \frac{1}{A} \left( 1 + SI_{max} \frac{A-1}{1+ \exp \left( - \frac{L-L_{mid}}{S} \right)} \right)$$
+$$ SI(L) = \frac{1}{A} \left( 1 + SI_{max} \frac{A-1}{1+ \exp \left( - \frac{L-L_{mid}}{S} \right)} \right) $$
 
 Where $L_{mid}$ is the speech level of the midpoint of the intelligibility function, $s$ is a slope parameter, $SI_{max}$ corresponds to the maximum intelligibility (can be smaller than 1), $A$ is the number of response alternatives (finite in a closed response format and $\infty$ in an open response format). Note that the slope at $L_{mid}$ is given by
 
@@ -101,7 +99,6 @@ $$ \frac{SI_{max}(A-1)}{4As} $$
 Since the standard deviation of SRT estimates is inversely proportional to the slope of the intelligibility function, these sentence tests are better suited for efficient and reliable SRT measurements than single-word tests.
 
 #### Internal Representation Approach
-
 The **internal representation approach** of modeling speech reception assumes that the speech signal is transformed by our auditory system with some non-linear parallel processing operations into an internal representation.
 
 >* **Ideal Observer**: An ideal observer performs a pattern match between the incoming internal representation and stored internal representations.
@@ -113,7 +110,7 @@ The internal representation is used as an input for a central cognitive recognit
 ## 5 Speech Quality Assessment
 
 :::info
-This Chapter talks about quality assessment in communication systems, nevertheless, it provides some objective measures that may be useful in the future
+This Chapter talks about quality assessment in **communication systems**, nevertheless, it provides some objective measures that may be useful in the future
 :::
 
 > * **Auditory Event**: The result of a speech perception process
@@ -130,7 +127,7 @@ Where k is the time index, L represents the order of the predictor, $a_l$ are th
 
 $$H(Z) = \frac{G}{1-\sum_{l=1}^{L} a_lz{-l}} = \frac{G}{A(z)}$$
 
-### Forward Linear Prediction
+### 7.2 Forward Linear Prediction
 
 The objective of forward LPC is to predict the value of the sample $x(k)$ from it past values i.e.: $x(k-1), x(k-2), \dots$. The forward prediction error is defined as
 
@@ -200,7 +197,7 @@ The minimum mean-square error (MMSE) is given by
     &= r(0) - \mathbf{r}^{T}_{f,L} \mathbf{a}_{o,L} = E_{f,L}
 \end{align}
 
-### Backward Linear Prediction
+### 7.3 Backward Linear Prediction
 
 The objective of Backward LPC is to predict past values of a signal, that is $x(k-L)$ given its future values ($x(k), x(k-1), \cdots, x(k-L+1)$).
 
@@ -244,11 +241,13 @@ The MMSE of the backward prediction is given by
 
 ## 9 Homomorphic Systems and Cepstrum Analysis of Speech
 
-### Cepstrum
+### 9.1 Definitions
+
+#### 9.1.1 Cepstrum
 
 >We define **Cepstrum** as
 >
-> $$ c[n] = \frac{1}{2\pi} \int_{-pi}^{pi} \log |X(e^{j \omega})| e^{j\omega n} d\omega$$
+> $$ c[n] = \frac{1}{2\pi} \int_{-\pi}^{\pi} \log |X(e^{j \omega})| e^{j\omega n} d\omega$$
 
 Note that this is the **Inverse Discrete Fourier Transform** of the **logarithm** of the **magnitude** of the **Discrete Time Fourier Transform** of the signal.
 
@@ -256,7 +255,7 @@ Note that the power of the exponential in the integral is positive, that happens
 
 > We define **quefrency** as the independent variable of the cepstrum, that is, the _n_ in $c[n]$. Note that this variable could be associated as a time variable, after all, is the independent variable of an IDTFT.
 
-### Homomorphic Systems
+#### 9.1.2 Homomorphic Systems
 
 [Homomorphic systems](https://en.wikipedia.org/wiki/Homomorphic_filtering) are **non-linear** systems that can be mapped non-linearly to a different domain in order to attain some linear systems characteristics, most notably the **superposition**. In simpler terms, homomorphic systems are nonlinear systems that _transforms a combination by convolution into a corresponding combination by addition_.
 
@@ -296,7 +295,7 @@ And the $\arg\{ \, \}$ operator is the phase of the complex number.
 
 The cascading of the previously defined operations has the desired property of turning convolution into addition ($D_*\{\,\}$), and conversely, by using complex exponential instead of complex $\log$, the inverse characteristic system is attained ($D^{-1}_*\{\,\}$).
 
-![Characteristic](https://files.benjagueno.cl/images/book_benesty_handbook-of-speech-processing_chap9_characterisic_system.png "Characteristic System" =x390)
+![Characteristic](https://files.benjagueno.cl/images/book_benesty_handbook-of-speech-processing_chap9_characterisic_system.png "Characteristic System" =x400)
 
 > Note that these definitions are closely related to the Cepstrum definition, and for that reason, the output of the characteristic system is called the **complex spectrum**.
 
@@ -310,11 +309,33 @@ Where $\text{Ev} \{ \, \}$ represents the even part of the function.
 
 That means that **the Cepstrum is the even part of the Complex Cepstrum**
 
-### Numerical Computation
+#### 9.1.3 Numerical Computation
 :::info
-I Should read section 9.1.3 when (if) needed
+I should read section 9.1.3 when (if) needed
 :::
 
-### Discrete-Time Model for Speech Production
+### 9.3 Discrete-Time Model for Speech Production
 
+Assuming that we have a sampled speech signal, it is helpful to have a discrete-time system model upon which to base analysis. Over short time intervals, the system is (assumed to be) not time-varying, and is characterized by an all pole rational system function of the form
 
+$$ H(z) = \frac{G}{1-\sum_{k=1}^{p}\alpha_k z^{-k}} = \frac{G}{\Pi_{k=1}^{p}\left( 1 - c_k z^{-1} \right)}$$
+
+Where $c_k < 1$ for stability. The input signal can be either a pulse train or a random noise, accounting for the glottal pulse excitation and fricative excitation respectively.
+
+![Discrete-Time Speech Signal](https://files.benjagueno.cl/images/book_benesty_handbook-of-speech-processing_chap9_disrete-time_speech_signal.png =x400)
+
+According to the book, homomorphic filtering and cepstrum analysis are important techniques for such analysis
+
+### 9.4 The Cepstrum of Speech
+
+The properties of speech signal **change slowly relative to the sampling rate of the signal**. This means that the properties can be sampled over short-time analysis in windows on the order of **20-30 ms**
+
+#### 9.4.1 Short-Time Cepstrum of Speech
+
+Over the length of a windows $L$, the speech signal follows the model of the previous figure, that means that $s[n]$ is
+
+$$s[n] = u[n]*h[n], \qquad 0 \leq n \leq L - 1$$
+
+where $h[n]$ is the impulse response corresponding to the system function.
+
+> The **impulse response of $h[n]$** models the combined effects of the of the gain $G$, the vocal-track frequency response, the glottal wave shape, and radiation of sound at the lips.
