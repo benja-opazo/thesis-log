@@ -119,3 +119,7 @@ Analysis of variance (ANOVA) ([Link](https://en.wikipedia.org/wiki/Analysis_of_v
 1. J Benesty, M. Mohan, Y. Huang - [Handbook of Speech Processing](./64WRtla6ROOu8VlVHRvDXQ)
     * Chapter 7 (cont.)
     * Chapter 9
+
+## Week 6 (20/04/2020)
+1. J Benesty, M. Mohan, Y. Huang - [Handbook of Speech Processing](./64WRtla6ROOu8VlVHRvDXQ)
+    * Chapter 9 (cont.)
