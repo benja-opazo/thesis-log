@@ -320,7 +320,7 @@ Assuming that we have a sampled speech signal, it is helpful to have a discrete-
 
 $$ H(z) = \frac{G}{1-\sum_{k=1}^{p}\alpha_k z^{-k}} = \frac{G}{\Pi_{k=1}^{p}\left( 1 - c_k z^{-1} \right)}$$
 
-Where $c_k < 1$ for stability. The input signal can be either a pulse train or a random noise, accounting for the glottal pulse excitation and fricative excitation respectively.
+Where $c_k < 1$ for stability. The input signal can be either a pulse train or random noise, accounting for the glottal pulse excitation and fricative excitation respectively.
 
 ![Discrete-Time Speech Signal](https://files.benjagueno.cl/images/book_benesty_handbook-of-speech-processing_chap9_disrete-time_speech_signal.png =x400)
 
@@ -338,4 +338,60 @@ $$s[n] = u[n]*h[n], \qquad 0 \leq n \leq L - 1$$
 
 where $h[n]$ is the impulse response corresponding to the system function.
 
-> The **impulse response of $h[n]$** models the combined effects of the of the gain $G$, the vocal-track frequency response, the glottal wave shape, and radiation of sound at the lips.
+> The **impulse response of $h[n]$*, models the combined effects of the gain $G$, the vocal-track frequency response, the glottal wave shape, and radiation of sound at the lips.
+
+Note that ideally each section is windowed, but we asssume that **the impulse response is short compared to the window** so that the windowed segment can be represented as
+
+$$ x[n] = w[n](u[n]*h[n]) \approx  u_w[n]*h[n], \qquad 0 \leq n \leq L - 1$$
+
+Where $u_w[n] = e[n]u[n]$. In the case of voiced speech, $u[n]$ corresponds to an impulse train of the form
+
+$$ u[n] = p[n] = \sum_{k=0}^{N_p - 1} \delta[n - kP_0]$$
+
+Where $P_0$ is the discrete-time **pitch period**. In the case of unvoiced speech, $u[n]$ is white noise.
+
+The windowed excitation $u_w[n]$ can be written as
+
+$$u_w[n] = \sum_{k=0}^{N_p -1} w_{P_0}[k]\delta[n-kP_0]$$
+
+Where $w_{P_0}[k] is the **time-sampled window sequence** defined as
+
+$$ w_{P_0}[k] =
+\begin{cases}
+w[kP_0] &k = 0,1, \dots, N_p - 1\\
+0 &otherwise
+\end{cases} $$
+
+Note that $N_p$ is the length of the impulse train. The DTFT of $u_w[n]$ is
+
+$$U_w[e^{j\omega}] = \sum_{k=0}^{N_p - 1}w_{P_0}[k]e^{-j \omega j P_0} = W_{P_0}(e^{j\omega P_0})$$
+
+Now, remember that we want to calculate the short-time cepstrum of $x[N]$, the windowed segment of the voice. 
+
+$$\hat{X}(e^{j\omega}) = \log \left( H(e^{j\omega}) \right) + \log \left( U_w(e^{j\omega}) \right)$$
+
+It is important to note that $U_w(e^{j\omega})$ has a period of $2\pi/ P_0$, which will appear in the cepstrum. **If the sampling rate is $f_s$, then the period corresponds to $fs/P_0$ Hz**
+
+The complex cepstrum of the windowed speech segment is
+
+$$\hat{x}[n] = \hat{h}[n] + \hat{u}_w[n]$$
+
+Where $\hat{u}_w[n]$ has the following form in voiced speech
+
+$$ \hat{u}_w[n] = 
+\begin{cases}
+    \hat{w}_{P_0}[n/P_0] &n = 0, \pm P_0, \pm 2P_0, \dots \\
+    0 &otherwise
+\end{cases} $$
+
+This periodicity does not occurs for unvoiced speech
+
+#### 9.4.2 Homomorphic Filtering of Speech
+
+We can use homomorphic filtering to separate the components of the speech model. That is, we multiply the signal $\hat{x}[n]$ with a sequence $l[n]$ to get $\hat{y}[n]$ (liftering), i.e.:
+
+$$ \hat{y}[n] = l[n]\hat{x}[n]$$
+
+The corresponding operation on the complex logarithm is periodic convolution in the frequency domain, i.e.:
+
+$$ \hat{Y}(e^{j\omega}) = \frac{1}{2\pi} \int_{-\pi}^{\pi} \hat{X}(e^{j\theta}) \hat{L}(e^{j(\omega - \theta)}) d\theta $$
