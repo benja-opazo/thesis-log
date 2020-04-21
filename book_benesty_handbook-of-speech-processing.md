@@ -395,3 +395,18 @@ $$ \hat{y}[n] = l[n]\hat{x}[n]$$
 The corresponding operation on the complex logarithm is periodic convolution in the frequency domain, i.e.:
 
 $$ \hat{Y}(e^{j\omega}) = \frac{1}{2\pi} \int_{-\pi}^{\pi} \hat{X}(e^{j\theta}) \hat{L}(e^{j(\omega - \theta)}) d\theta $$
+
+++**Homomorphic filtering can be used to separate the components of a convolution, and this technique can be used to deconolve short segments of voiced speech**++
+
+This can let us estimate, for example $h[n]$, the impulse response of the vocal tract of a given short voiced sample (where $h[n]$ is convolved with an impulse train)
+
+
+### 9.5 Relation to LPC
+
+:::info
+Maybe it is better to read this section directly from the book, because it is full of tips and tricks
+:::
+
+
+### 9.6 Application to Pitch Detection
+
