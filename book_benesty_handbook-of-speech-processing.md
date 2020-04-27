@@ -127,6 +127,10 @@ Where k is the time index, L represents the order of the predictor, $a_l$ are th
 
 $$H(Z) = \frac{G}{1-\sum_{l=1}^{L} a_lz{-l}} = \frac{G}{A(z)}$$
 
+:::warning
+Note that the coefficients are **substracted** and that there is a $1$ before the substraction
+:::
+
 ### 7.2 Forward Linear Prediction
 
 The objective of forward LPC is to predict the value of the sample $x(k)$ from it past values i.e.: $x(k-1), x(k-2), \dots$. The forward prediction error is defined as
@@ -163,14 +167,14 @@ That is, the expectation of the square of the error as defined previously. To mi
 
 $$\mathbf{R}_L\mathbf{a}_{o,L} = \mathbf{r}_{f,L}$$
 
-where $\mathbf{a}_{o,L}$ is the _optimal_ forward predictor. Where $\mathbf{R}_L$ is the correlation matrix and is given by
+where $\mathbf{a}_{o,L}$ is the _optimal_ forward predictor.  $\mathbf{R}_L$ is the correlation matrix and is given by
 
 \begin{align}
     \mathbf{R}_L 
     &= \mathbf{E} \{ \mathbf{x}_L(k-1) \mathbf{x}^T_L(k-1) \} = \mathbf{E} \{ \mathbf{x}_L(k)\mathbf{x}^T_L(k) \} \\
     &= \left[ \begin{matrix}
             r(0) & r(1) & \cdots & r(L-1) \\
-            r(1) & (r=) & \cdots & r(L-2) \\
+            r(1) & r(0) & \cdots & r(L-2) \\
             \vdots & \vdots & \ddots & \vdots \\
             r(L-1) & r(L-2) & \cdots & r(0)    
         \end{matrix} \right]
@@ -409,4 +413,8 @@ Maybe it is better to read this section directly from the book, because it is fu
 
 
 ### 9.6 Application to Pitch Detection
+
+:::info
+No useful information is given in this chapter, I should look for modern techniques of pitch detection
+:::
 
