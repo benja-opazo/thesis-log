@@ -13,13 +13,13 @@ Analysis of variance (ANOVA) ([Link](https://en.wikipedia.org/wiki/Analysis_of_v
 ## Week 1 (09/03/2020)
 
 1. Thesis proposal
-2. J. Elman - **Effects of frequency-shifted feedback on the pitch of vocal production** ([Link](https://files.benjagueno.cl/resources/Elman1981.pdf))
+2. J. Elman - **Effects of frequency-shifted feedback on the pitch of vocal production** ([Link](https://files.benjagueno.cl/papers/Elman1981.pdf))
     * They hypothesize that there is some tendency for subjects to compensate for the frequency shifts. That is, if they listen to a higher pitch, the subjects will lower their voices
     * Frequency shifts as great as 15% were not noticeable to many people
     * The distortion (frequency-shift feedback) is sufficient to affect F0 (compensation), but not so great as to cause them to reject the feedback as valid
     * Awareness of the distortion seemed not to be necessary for nor to prevent compensation (note that the experiments weren't under natural speaking situation)
 
-3. J. Kreiman - **Perceptual Evaluation of Voice Quality** ([Link](https://files.benjagueno.cl/resources/Kreiman1993.pdf))
+3. J. Kreiman - **Perceptual Evaluation of Voice Quality** ([Link](https://files.benjagueno.cl/papers/Kreiman1993.pdf))
     * As stated in the title, this review discuses perceptual evaluation of voice quality
     * Voice quality is fundamentally perceptual in nature
     * They discus about types of rating scales:
@@ -36,7 +36,7 @@ Analysis of variance (ANOVA) ([Link](https://en.wikipedia.org/wiki/Analysis_of_v
 ## Week 2 (16/03/2020)
 
 
-1. J. Kreiman - **Defining and Measuring Voice Quality** ([Link](https://files.benjagueno.cl/resources/Kreiman2003.pdf))
+1. J. Kreiman - **Defining and Measuring Voice Quality** ([Link](https://files.benjagueno.cl/papers/Kreiman2003.pdf))
     * In this paper, the researchers try to define what is voice quality (using several definitions, pros and con of each definition), and different methods to measure it, taking into account the aforementioned definitions.
     * The overall quality (or timbre) of a sound is traditionally defined as "that attribute of auditory sensation in terms of which a listener can judge that two sounds similarly presented and having the same loudness and pitch are dissimilar"
     * Quality is multidimensional, that includes the spectral envelope and its changes in time, fluctuations of amplitude and fundamental frequency, and periodicity of the signal.
@@ -45,7 +45,7 @@ Analysis of variance (ANOVA) ([Link](https://en.wikipedia.org/wiki/Analysis_of_v
     * There is considerable confusion surrounding the problem of measuring voice quality
     * The GRBAS protocol was developed from the result of factor analyses of restricted populations of speakers, small sets of voices and **short stimuli**
     * **A proposed solution to a more reliable voice quality assessment is to use a speech synthesized voice to calibrate the listeners internal scale** (*Gerratt, B.R., and Kreiman, J., “Measuring Vocal Quality With Speech Synthesis”, J.Acoust.Soc.Am., 110:2560-2566, 2001.*)
-2. R. Taitelbaum-Swead - **The effect of DAF and FAF (frequency) on speech production: cochlear vs normal hearing** ([Link](https://files.benjagueno.cl/resources/Taitelbaum_Swead2019.pdf)) 
+2. R. Taitelbaum-Swead - **The effect of DAF and FAF (frequency) on speech production: cochlear vs normal hearing** ([Link](https://files.benjagueno.cl/papers/Taitelbaum_Swead2019.pdf)) 
     * The objective is to evaluate the effect of DAF and FAF on speech production among prelingual cochlear implant users and normal hearing individuals
     * There is compelling evidence that absence of auditory feedback during language acquisition affects the development of speech production abilities
     * Adults who have already acquired speech, the absence of auditory feedback is associated with deterioration in speech production over time
@@ -53,7 +53,7 @@ Analysis of variance (ANOVA) ([Link](https://en.wikipedia.org/wiki/Analysis_of_v
     * During FAF, talkers show a compensatory patterns, however some talkers change their pitch in the same direction as the feedback
     * According to this study, temporal alterations of speech production as a result of DAF was more pronounced than the effect of spectral alterations (FAF).
     * Other literature reported that FAF has a noteworthy effect on speech production, particularly in fundamental frequency
-3. Z. Wang - **Automatic Assessment of Pathological Voice Quality using Multidimensional Acoustic Analysis Based on the GRBAS Scale** ([Link](https://files.benjagueno.cl/resources/Wang2015.pdf)) 
+3. Z. Wang - **Automatic Assessment of Pathological Voice Quality using Multidimensional Acoustic Analysis Based on the GRBAS Scale** ([Link](https://files.benjagueno.cl/papers/Wang2015.pdf)) 
     * Perceptual evaluation of VQ is considered a gold standard for assessing pathological voice quality, inter and intra-listeners variability associated with different perceptual ratings cannot be ignored
     * **Some of the more common assessment protocols include the Buffalo Voice Profile (BVP) Analysis, Vocal Profile Analysis (VPA) scheme and GRBAS scale**
     * Jitter, shimmer and harmonics-to-noise-ratio (HNR) have been used to evaluate VQ
@@ -61,7 +61,7 @@ Analysis of variance (ANOVA) ([Link](https://en.wikipedia.org/wiki/Analysis_of_v
     * MFCC can be adopted for voice quality assessment (with machine learning)
     * Glottal Closure Instants (GCIs) and Glottal Open Instants (GQIs) can be automatically estimated by using DYPSA algorithm.
     * The paper focuses on the automatic assessment of VQ by estimating or calculating different features and then reducing the feature set by using different algorithms. The assessment of dysphonic voices is difficult and unreliable, because pathological voices are heterogeneous
-4. J. Kreiman - **Toward a unified theory of voice production and perception**  ([Link](https://files.benjagueno.cl/resources/Kreiman2014.pdf))
+4. J. Kreiman - **Toward a unified theory of voice production and perception**  ([Link](https://files.benjagueno.cl/papers/Kreiman2014.pdf))
     * Acoustic perturbation measures are not individually informative about voice quality, because listeners cannot hear even large differences in jitter or shimmer
     * **In order to quantify the entire voice pattern, they apply analysis-by-synthesis to copy each voice sample with a speech synthesizer (Kreiman,Antoñanzas-Barroso,&Gerratt,2010).**
     * This is important for copy-synthesize a voice:
@@ -82,6 +82,10 @@ Analysis of variance (ANOVA) ([Link](https://en.wikipedia.org/wiki/Analysis_of_v
     * The voice source was estimated via inverse filtering, and its spectrum was then calculated via FFT
     * **The percept of breathiness is influenced by a steep drop in harmonic energy in the lower frequencies**
 
+:::info
+Notes: Que tipo de sintetizador ocupan??
+:::
+
 5. I. Itze - [Principles of Voice Production](./_zGm-Kl4SyWXceT5vQ88CA)
     * Introduction
     * Chapter 2
@@ -100,7 +104,7 @@ Analysis of variance (ANOVA) ([Link](https://en.wikipedia.org/wiki/Analysis_of_v
     * Chapter 5
     * Chapter 7
 
-2. L. Atlas, S. Shamma - Joint Acoustic and Modulation Frequency ([Link](https://files.benjagueno.cl/resources/Atlas2003.pdf)) 
+2. L. Atlas, S. Shamma - Joint Acoustic and Modulation Frequency ([Link](https://files.benjagueno.cl/papers/Atlas2003.pdf)) 
     * This papers aims to improve perceptual understanding and modeling
     * It proposes a new representation and coding of acoustic signals
     * Cells in the auditory cortex are best driven by sounds that combine both spectral and temporal modulations
@@ -123,3 +127,29 @@ Analysis of variance (ANOVA) ([Link](https://en.wikipedia.org/wiki/Analysis_of_v
 ## Week 6 (20/04/2020)
 1. J Benesty, M. Mohan, Y. Huang - [Handbook of Speech Processing](./64WRtla6ROOu8VlVHRvDXQ)
     * Chapter 9 (cont.)
+2. Matlab -  LPC and Cepstrum [matlab_lpc_cepstrum.m](https://files.benjagueno.cl/matlab/lpc_cepstrum_test.m)
+3. Meeting 23/04
+    * CELP: Code Excited Linear Prediction
+    * Text: [El Abuelo](https://fonoaudiologiaexpress.files.wordpress.com/2012/05/prot-habla.pdf) (phonetically balanced)
+    * **Todo**:
+        - [ ] Resynthesize "El Abuelo" with LPC and Cepstrum (windows of 10-20 ms).
+        - [ ] Read contemporary papers about speech synthesis. They have to be doable in real-time
+
+## Week 7 (27/04/2020)
+ 1. Matlab -  LPC and Cepstrum [matlab_lpc_cepstrum.m](https://files.benjagueno.cl/matlab/lpc_cepstrum_test.m)
+ 2. Github: [LPCsynthesis](https://github.com/krylenko/LPCsynthesis)
+     * It is not that good
+ 3. Y. Bennane - **Synthesis of Pathological Voices and Experiments on the Effect of Jitter and Shimmer in Voice Quality Perception**  ([Link](https://files.benjagueno.cl/papers/Bennane2017.pdf))
+     * Voice synthesizer based on Direct Digital Synthesis (DDS). Useful to generate only jitter, shimmer or both.
+     * The treshold of normal/pathological voice is 1.04% for jitter, and 3.81% for shimmer.
+     * Excess additive noise at the glottis may cause voices to be perceives as breathy.
+     * Hoarseness is not well understood int he xontext of properties of the modulation
+     * The DDS is a method usually used to generate periodic signals in variant fields
+ 5. Meeting 30/04
+     * LPC Troubleshoot
+         - [ ] Check Overlap
+         - [ ] Check inverse filtering
+         - [ ] Check Prof. Zañartu's Code
+    * **Todo**:
+        - [ ] Continue Resynthesizing
+        - [ ] Continue Reading contemporary papers about speech synthesis
