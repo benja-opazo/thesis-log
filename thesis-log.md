@@ -153,3 +153,18 @@ Notes: Que tipo de sintetizador ocupan??
     * **Todo**:
         - [ ] Continue Resynthesizing
         - [ ] Continue Reading contemporary papers about speech synthesis
+
+## Week 8 (04/05/2020)
+ 1. Conference: [IEEE ICASSP 2020](https://cmsworkshops.com/ICASSP2020/TechnicalProgram.asp)
+ 2. S. Mohammadi - **An Overview of Voice Conversion Systems** [link](https://files.benjagueno.cl/papers/Mohammadi2017.pdf)
+     * Linear predictive coding (LPC) is an implementation of all-pole models, and mel-log spectrum approximation (MLSA)
+     * [SPTK](http://sp-tk.sourceforge.net/) is a publicly available toolkit that provides linear predictive and MLSA analysis/synthesis
+     * Signal-based analysis/synthesis approaches model the speech signal by not making any restrictive assumptions (such as the independence of source signal and filter); hence they usually have higher quality. The downside is that they are less flexible for modification.
+     * [AHOCODER](https://aholab.ehu.eus/ahocoder/info.html) is a publicly available toolkit that provides high-quality HNM synthesis
+     * **3.2 Contextual Features**: Most of the mapping functions assume frame-by-frame processing. Human speech is highly dynamic over longer segments and the frame-by-frame assumption restricts the modeling power of the mapping function
+     * **7.1 Objective Evaluation**: The most prominent measure used in the VC literature is the mel-cepstrum distance (mel-CD), also measured in dB. **The mel-CD is suitable for evaluating preliminary experiments, defining training criterions, and validation purposes, but not for evaluating the final system regarding quality due to the low correlation with human perception**
+$$ \text{mel-CD}(y, \hat{y}) = \left( \frac{10}{\ln 10} \right) \sqrt{2(y-\hat{y})^{T}(y-\hat{y})}$$
+    * An automatic voice conversion evaluation strategy was proposed, wherein both speech quality and speaker similarity were automatically computed ([Huang et al., 2016](https://files.benjagueno.cl/papers/Huang2016.pdf))
+
+ 2. D. Huang - **An Automatic Voice Conversion Evaluation Strategy Based on Perceptual Background Noise Distortion and Speaker Similarity** ([link](https://files.benjagueno.cl/papers/Huang2016.pdf))
+     * 
