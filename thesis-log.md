@@ -10,6 +10,11 @@ The Visi-Pitch: A Clinical Tool ([Link](http://w140.com/tekwiki/images/0/05/Kay_
 
 Analysis of variance (ANOVA) ([Link](https://en.wikipedia.org/wiki/Analysis_of_variance))
 
+SPTK is a publicly available toolkit that provides linear predictive and MLSA analysis/synthesis ([Link](http://sp-tk.sourceforge.net/))
+
+AHOCODER is a publicly available toolkit that provides high-quality HNM synthesis ([Link](https://aholab.ehu.eus/ahocoder/info.html))
+
+
 ## Week 1 (09/03/2020)
 
 1. Thesis proposal
@@ -156,15 +161,45 @@ Notes: Que tipo de sintetizador ocupan??
 
 ## Week 8 (04/05/2020)
  1. Conference: [IEEE ICASSP 2020](https://cmsworkshops.com/ICASSP2020/TechnicalProgram.asp)
- 2. S. Mohammadi - **An Overview of Voice Conversion Systems** [link](https://files.benjagueno.cl/papers/Mohammadi2017.pdf)
+ 2. S. Mohammadi - **An Overview of Voice Conversion Systems** ([link](https://files.benjagueno.cl/papers/Mohammadi2017.pdf))
      * Linear predictive coding (LPC) is an implementation of all-pole models, and mel-log spectrum approximation (MLSA)
      * [SPTK](http://sp-tk.sourceforge.net/) is a publicly available toolkit that provides linear predictive and MLSA analysis/synthesis
      * Signal-based analysis/synthesis approaches model the speech signal by not making any restrictive assumptions (such as the independence of source signal and filter); hence they usually have higher quality. The downside is that they are less flexible for modification.
      * [AHOCODER](https://aholab.ehu.eus/ahocoder/info.html) is a publicly available toolkit that provides high-quality HNM synthesis
      * **3.2 Contextual Features**: Most of the mapping functions assume frame-by-frame processing. Human speech is highly dynamic over longer segments and the frame-by-frame assumption restricts the modeling power of the mapping function
      * **7.1 Objective Evaluation**: The most prominent measure used in the VC literature is the mel-cepstrum distance (mel-CD), also measured in dB. **The mel-CD is suitable for evaluating preliminary experiments, defining training criterions, and validation purposes, but not for evaluating the final system regarding quality due to the low correlation with human perception**
-$$ \text{mel-CD}(y, \hat{y}) = \left( \frac{10}{\ln 10} \right) \sqrt{2(y-\hat{y})^{T}(y-\hat{y})}$$
+    \begin{equation}
+         \text{mel-CD}(y, \hat{y}) = \left( \frac{10}{\ln 10} 
+    \right) \sqrt{2(y-\hat{y})^{T}(y-\hat{y})}
+    \end{equation}
     * An automatic voice conversion evaluation strategy was proposed, wherein both speech quality and speaker similarity were automatically computed ([Huang et al., 2016](https://files.benjagueno.cl/papers/Huang2016.pdf))
-
  2. D. Huang - **An Automatic Voice Conversion Evaluation Strategy Based on Perceptual Background Noise Distortion and Speaker Similarity** ([link](https://files.benjagueno.cl/papers/Huang2016.pdf))
-     * 
+     * Objectvie VQ Measurements: They were acquired by linear combination of basic objective measures such as segmental SNR (segSNR) [31], weighted-slope spectral distance [32], and PESQ measure [12].
+ 3. Meeting 07/05
+    * Voice Quality Measurements:
+        * CPP: Cepstral peak prominence
+        * HNR: Harmonic Noise Ratio
+    * Glottal Source Voice Quality (objective?)
+
+## Week 9 (11/05/2020
+
+1. D. Childers - **Glottal source modeling for voice conversion** ([link](https://files.benjagueno.cl/papers/Childers1995.pdf))
+    * They used two methods to synthesize voice: Using a polynomial model (an LP synthesizer) and using a LF model (LF??).
+    * The LP parameters are not easily related to the glottal excitation waveform and the vocal tract parameters. and manipulating the parameters by rule is a difficult and largely an unsolved problem.
+    * For example, recent research has shown that characteristics of the glottal source waveform, such as the glottal pulse width, glottal pulse skewness, the abruptness of glottal closure, and a turbulence noise component (Childers and Lee, 1991), are important both for speech synthesis and for modeling voice types and vocal disorders.
+    * A simple glottal waveform model can characterize attributes of the glottal volume-velocity waveform for three voice types, namely, modal (a vocal register), vocal fry (a vocal register) and breathy voice.
+    * The size of the CELP codebook is typically determined by three factors: the transmission rate, computational complexity and the frame update rate.
+    * It appears that the mean value of the normalized parameter $t_c$ which is equivalent to the open quotient ($OQ_{LF}$) **is a potential feature for distinguishing the three voice types** (modal voice, vocal fry and breathy voice)
+    * In general, the incorporation of turbulence noise in the excitation enhanced the naturalness of the synthesized speech.
+2. T. Drugman - **Glottal Source Processing: from Analysis to Applications** ([link](https://files.benjagueno.cl/papers/Drugman2014.pdf))
+    * ==Glottal source processing is necessary for the study of glottal-based vocal effects, which can be segmental (as for vocal fry), or be controlled by speakers on a separate supra-segmental layer (as in the case for the voice quality modifications)==
+    * The voice source or glottal source is the volume velocity waveform that serves as the excitation of speech produced by the vocal folds
+    >* **Open Phase**: Time span during which the vocal folds (VF) are opening
+    >* **Return Phase**: Period during which the VF are closing
+    >* **Closed Phase**: The period during which the VF remain closed
+
+    ![Waveforms](https://files.benjagueno.cl/images/paper_drugman2014_fig3.png "Typical Waveform" =x400)
+    
+     Typical Waveform of the glottal flow (top) and the glottal flow derivative (bottom)
+     
+     * asdf
