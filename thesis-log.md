@@ -14,6 +14,9 @@ SPTK is a publicly available toolkit that provides linear predictive and MLSA an
 
 AHOCODER is a publicly available toolkit that provides high-quality HNM synthesis ([Link](https://aholab.ehu.eus/ahocoder/info.html))
 
+COVAREP A Cooperative Voice Analysis Repository for Speech Technologies ([Link](https://github.com/covarep/covarep))
+
+
 
 ## Week 1 (09/03/2020)
 
@@ -202,4 +205,36 @@ Notes: Que tipo de sintetizador ocupan??
     
      Typical Waveform of the glottal flow (top) and the glottal flow derivative (bottom)
      
-     * asdf
+
+
+## Week 10 (25/05/2020)
+
+#### ICASSP
+
+1. **GCI Detection from Raw Speech using a Fully-Convolutional Network** - Axel Roebel
+    * Covers Full pitch range
+        * Doesn't actually work with rough voices
+    * They compared their results with other methods, **most notably the SEDREAMS (Drugman 2012)** which is present in **COVAREP**
+        * In general, SEDREAM outperforms DPI algorithm (at least in detection rate)
+2. **Deep Representation Learning** - Yoshua Bengio
+3. **F0-Consistent Many-to-Many Non-Parallel Voice Conversion Via Conditional Autoencoder** - Kaizhi Qian
+
+4. Meeting 28/05
+    * Finish Voice Quality on Drugman's Review, voice pitch
+    * Study Covarep
+    * Look for references in the toolboxes
+
+## Week 11 (01/06/2020)
+
+1. T. Drugman - **Glottal Source Processing: from Analysis to Applications** ([link](https://files.benjagueno.cl/papers/Drugman2014.pdf))
+    * Besides the application of statistical parametric synthesis, several systems have targeted voice transformation by processing the excitation signal. Cabral et al. (2008), Degottex et al. (2011b) and Agiomyrgiannakis and Rosec (2009) proposed the use of the LF model to perform voice modifications (e.g. in terms of breathiness or tenseness of the generated speech). Several approaches have also focused on the manipulation of the excitation signal to carry out high-quality pitch modification (Cabral and Oliveira, 2005; Degottex et al., 2011b; Drugman and Dutoit, 2010a). Finally, the glottal source has also been employed in the context of voice conversion (i.e. with a specific target speaker in view) where, in addition to improving the segmental quality, it also offers the possibility to apply voice quality modifications (Childers, 1995; Pozo and Young, 2008).
+    * The weakest point of current glottal source processing algorithms is related to their lack of robustness.
+2. L. Rachman - **DAVID: An open-source platform for real-time transformation of infra-segmental emotional cues in running speech** ([link](https://files.benjagueno.cl/papers/Rachman2017.pdf))
+    * More recently, speech synthesis techniques, typically pitch-synchronous overlap-and-add methods (PSOLA) **and shape-invariant phase vocoder (Roebel, 2010)**, support the active testing of hypotheses by directly manipulating the acoustic parameters of the vocal stimuli (Bulut & Narayanan, 2008).
+    * A second particularity of this work is that the transformation can be done in real time, modifying speech as it is uttered, without imparting any delay capable of breaking a natural conversation flow (in practice, less than 20ms)
+    * The approach described here manages to operate in real-time by careful design rather than by technical prowess. First, we favor effects that can be implemented efficiently, such as simple time-domain filtering, and in cascade (such as vibrato and pitch shifting both using the same pitch shifting module). Second, because the manipulation is designed to be ‘‘natural”, our effects operate over very subtle parameter ranges (e.g., +/− 40 cents pitch shifting, instead of e.g., +/− 1 octave as targeted in Cabral and Oliveira 2005), for which even simplistic (and fast) approaches are sufficient.
+    * ==Aucouturier et al. (2016) found that vocal feedback with a latency of 20 ms did not disrupt continuous speech==
+    * Because the manipulations affect voice spectrum, headphones should present a relatively flat frequency response. In this study, we used Beyerdynamic’s DT770 Pro headphones, which we found satisfy these requirements.
+    
+3. ==A. Roebel - **Shape-invariant speech transformation with the phase vocoder**== ([link](https://files.benjagueno.cl/papers/Roebel2010.pdf))
+    * 
