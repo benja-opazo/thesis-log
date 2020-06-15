@@ -201,9 +201,9 @@ Notes: Que tipo de sintetizador ocupan??
     >* **Return Phase**: Period during which the VF are closing
     >* **Closed Phase**: The period during which the VF remain closed
 
-    ![Waveforms](https://files.benjagueno.cl/images/paper_drugman2014_fig3.png "Typical Waveform" =x400)
-    
-     Typical Waveform of the glottal flow (top) and the glottal flow derivative (bottom)
+![Waveforms](https://files.benjagueno.cl/images/paper_drugman2014_fig3.png "Typical Waveform" =x400)
+ 
+    Typical Waveform of the glottal flow (top) and the glottal flow derivative (bottom)
      
 
 
@@ -235,6 +235,121 @@ Notes: Que tipo de sintetizador ocupan??
     * The approach described here manages to operate in real-time by careful design rather than by technical prowess. First, we favor effects that can be implemented efficiently, such as simple time-domain filtering, and in cascade (such as vibrato and pitch shifting both using the same pitch shifting module). Second, because the manipulation is designed to be ‘‘natural”, our effects operate over very subtle parameter ranges (e.g., +/− 40 cents pitch shifting, instead of e.g., +/− 1 octave as targeted in Cabral and Oliveira 2005), for which even simplistic (and fast) approaches are sufficient.
     * ==Aucouturier et al. (2016) found that vocal feedback with a latency of 20 ms did not disrupt continuous speech==
     * Because the manipulations affect voice spectrum, headphones should present a relatively flat frequency response. In this study, we used Beyerdynamic’s DT770 Pro headphones, which we found satisfy these requirements.
+    * [Video](https://player.vimeo.com/video/146702945)
+
+## Week 12 (08/06/2020)
     
-3. ==A. Roebel - **Shape-invariant speech transformation with the phase vocoder**== ([link](https://files.benjagueno.cl/papers/Roebel2010.pdf))
-    * 
+##### ==A. Roebel - **Shape-invariant speech transformation with the phase vocoder**== ([Link](https://files.benjagueno.cl/papers/Roebel2010.pdf))
+
+The paper proposes a new phase vocoder based method for **shape invariant real-time modification of speech signals**. The algorithm, compared to PSOLA works with a very satisfying performance.
+
+A standard phase vocoder performs signal transformation modifying the spectral frames of a STFT given by
+
+\begin{equation}
+    X_l(k) = \sum_{n} x(n) w(n-C_l) e^{\frac{-2 \pi k n}{N}}
+\end{equation}
+
+Where:
+* $x(n)$ is the input signal
+* $w(n)$ is the analysis window that is centered around the origin
+* $M$ is the windows length
+* $N > M$ is the DFT size
+* $C_l$ is the window center for frame $l$
+
+The idea is to modify the content and position of the frames $X_l(k)$, obtaining the **modified sequence $(\widetilde{X_l})$** which is then synthesized using overlap-add.
+
+**$C_{l}^{'}$ are the synthesis frame positions**. If the STFT frames are time-shifted, the phases of the STFT have to be adapted to achieve coherent overlap-add **of the sinusoidal components**.
+
+Phases at position $C'(l)$ are obtained from phases at position $C'(l-1)$ as follows
+
+\begin{align}
+    I &= C_l - C_{l-1} \\
+    \Theta_l(k) &= \frac{\left[ \arg(X_l(k)) - \arg(X_{l-1}(k)) - I \frac{2\pi k}{N} \right]_{2 \pi }}{I} \\
+    \widetilde{\Phi_{l}(k)} &= \widetilde{\Phi_{l-1}(k)} + (\Theta_l(k) + \frac{2\pi k}{N})(C_{l}^{'} - C_{l-1}^{'})
+\end{align}
+
+Where:
+* $\Theta_l$ is the frequency difference between the center frequency at bin $k$ that is obtained using **the principal value $[]_{2\pi}$** of the observed and nominal expected phase in frame $l$
+* $\Phi_l(k)$ is the phase in $X_l(k)$
+
+Note that the phase update in the phase vocoder does not take into account the phase relations between **the different sinusoids** (vertical phase synchronization).
+
+The vertical phase synchronization of the sinusoidal components is perceptually uncritical for most musical signals, whereas for **speech signals it affects the perception of the underlying excitation pulses**, and leads to an artifact that is generally describes as missing clarity of the transformed voice.
+
+**A Shape Invariant Processing (SHIP) is a transformation algorirthm that preserves these inter-partial phase relations**.
+
+For the cases of harmonic sounds (where the frequencies are whole multiples of the resonant frecuency), the phase of the modified frame can be obtained as
+
+\begin{equation}
+    \widetilde{\Phi_l(k)} = \Phi_l(k) + \Theta_l(k) \Delta_n
+\end{equation}
+
+where:
+* $\Delta_n$ is a time shift that will be determined below.
+
+The inter-partial phase synchronization is always maintained because:
+* $\Delta_n$ is generally small
+* The recursive structure of eq (4) is avoided.
+
+**Phase estimation of the optimal time shift**
+
+The optimal time shift can be obtained from the cross-correlation between the last synthesis frame $\widetilde{X_{l-1}(k)}$ and the current unmodified synthesis frame $X_l(k)$ that has been placed in position $C_{l}^{'}$
+
+They constrain the cross-correlation to use only sinusoidal signal components by using a spectral mask $S_l(k)$ This way, the impact of the signal background noise during the estimation of the optimal overlap position is attenuated.
+
+It is needed that $N \geq 2M$, if it is not fulfilled, the complex signal spectrum can be interpolated prior to masking. And the **interpolation can be limited to the frequency range containing sinusoidal components**.
+
+The cross-correlation sequence for the sinusoidal components denotes as $Z(n)$ is given by
+
+\begin{equation}
+    Z(n) = \sum_{k=0}^{N}((X_l(k)^* S_l(k) \widetilde{X_{l-1}}(k)S_{l-1}(k))e^{j\frac{kn}{N} 2\pi}
+\end{equation}
+
+Where:
+* $S_l(k)$ is the spectral mask for each frame $l$
+
+The objective is to find the maximum of the underlying periodic structure of the cross-correlation sequence by removing as much as possible the effect of the analysis window.
+
+For a given frame offset, between the synthesis frames, the preferred time delay is 
+
+\begin{equation}
+    O_l = C_{l}^{'} - C_{l-1}^{'}
+\end{equation}
+
+In this case we do not have to modify the phases of the synthesis.
+
+For modified signals, the idea is that the delay is as close as possible to $O_l$, how close?, $O_l \pm P/2$
+
+Where:
+* $P$ is the length of the signal period at the center of the current synthesis frame $X_l$
+
+The optimal time shift following the constraints discussed above can be calculated with the following equations
+
+\begin{align}
+    N(n) &= \max(Z_q(n),Z_w(D)) \\
+    Z'(n) &= Z(n)/N(n) \\
+    T_l &= \underset{n}{\arg \max} (Z'(n) N(n-O_l))
+\end{align}
+
+Where:
+* $Z_w(n)$ is the auto-correlation sequence of the analysis window
+* $N(n)$ is a normalization sequence that compensates the effect of $Z_w(n) on the cross-correlation sequence
+* $Z'(n)$ represents the cross-correlation sequence after compensation of the systematic impact of the analysis window by means of $N(n)$.
+* $T_l$ is the optimal time delay, which is given when $Z'(n)N(n-O_l)$ is maximum
+
+Then, we get
+
+\begin{equation}
+    \Delta_n = T_l - O_l
+\end{equation}
+
+---
+ 1. Presentation:
+     * Is JND different between voice perception and voice generation?
+     * **When doing the thesis, it is important to note that latency must be constant (no jitter)**
+
+## Week 13 (15/06/2020)
+
+1. G. Degottex - **Pitch Transposition and Breathiness Modification using a Glottal Source Model and its Adapted Vocal-Track Filter** ([Link](https://files.benjagueno.cl/papers/Degottex2011.pdf))
+    * asd
+
