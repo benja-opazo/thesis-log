@@ -6,15 +6,20 @@
 
 Audio samples from "Transfer Learning from Speaker Verification to Multi speaker Text-To-Speech Synthesis" ([Link](https://google.github.io/tacotron/publications/speaker_adaptation/))
 
-The Visi-Pitch: A Clinical Tool ([Link](http://w140.com/tekwiki/images/0/05/Kay_visi-pitch_6087_ad.pdf))
+The Visi-Pitch: A Clinical Tool ([pdf](http://w140.com/tekwiki/images/0/05/Kay_visi-pitch_6087_ad.pdf))
 
-Analysis of variance (ANOVA) ([Link](https://en.wikipedia.org/wiki/Analysis_of_variance))
+Analysis of variance (ANOVA) ([Wiki](https://en.wikipedia.org/wiki/Analysis_of_variance))
 
 SPTK is a publicly available toolkit that provides linear predictive and MLSA analysis/synthesis ([Link](http://sp-tk.sourceforge.net/))
 
 AHOCODER is a publicly available toolkit that provides high-quality HNM synthesis ([Link](https://aholab.ehu.eus/ahocoder/info.html))
 
-COVAREP A Cooperative Voice Analysis Repository for Speech Technologies ([Link](https://github.com/covarep/covarep))
+COVAREP A Cooperative Voice Analysis Repository for Speech Technologies ([Github](https://github.com/covarep/covarep))
+
+Mean Opinion Score  (MOS) are a standard measure for subjective sound quality tests⁽[ʳᵉᶠ](https://deepmind.com/blog/article/wavenet-generative-model-raw-audio)⁾
+ ([Wiki](https://en.wikipedia.org/wiki/Mean_opinion_score))
+ 
+ ==WORLD Vocoder ([Github](https://github.com/mmorise/World), [Link](http://www.kki.yamanashi.ac.jp/~mmorise/world/english/download.html))==
 
 
 
@@ -351,5 +356,38 @@ Then, we get
 ## Week 13 (15/06/2020)
 
 1. G. Degottex - **Pitch Transposition and Breathiness Modification using a Glottal Source Model and its Adapted Vocal-Track Filter** ([Link](https://files.benjagueno.cl/papers/Degottex2011.pdf))
-    * asd
+    * Not in real-time
+    * This paper addresses the pitch transposition and the modification of breathiness by means of an analytic description of the deterministic component of the voice source, a glottal model.
+    * The model to synthesize they use is the following
+\begin{equation}
+    S(\omega) = \left[ H^{f_0}(\omega) \cdot G^{Rd}(\omega) + N^{\sigma_g}(\omega)\right] \cdot C^{\bar{c}}(\omega) \cdot L(\omega)
+\end{equation}
+    * The voice signal can be parametrized by $\{f_0,Rd,E_e,\sigma_g, \bar{c} \}$
+    * For small transpositions, the quality of the SVLN method seems between those of SHIP and STRAIGHT
+    * However, for a significant transposition (one octave below or above), the glottal model used in SVLN constraints the deterministic component of the glottal source in some way that a minimal naturalness is ensured
+
+2. **WaveNet** ([Blog post](https://deepmind.com/blog/article/wavenet-generative-model-raw-audio), [Paper 2016](https://arxiv.org/pdf/1609.03499.pdf), [Paper 2017](https://arxiv.org/pdf/1711.10433.pdf)) 
+    * It uses **machine learning** to synthesize voice
+    * The best algorithm to synthesize voice (2017)
+    * It can even synthesize music!
+    * **Extremely slow**: 1 second of synthesis takes 1 minute of a powerful GPU
+    * Very hard to train
+    * **Parallel Wavenet** is very fast to synthesize (1 second of voice takes less than a second), but almost impossible to train if you are not Google or Apple
+
+3. M. Gentilucci - **Composing Vocal Distortion: A Tool for ==Real-Time Generation of Roughness==**
+    * In the **spectral domain**, a rough voice is characterized by a low harmonic-to-noise ratio, with the presence of noise and subharmonics 
+    * In the **time domain**, rough voices are mainly characterized by the presence of important degrees of jitter and shimmer
+    * From the **perceptual point of view**, roughness is related to the ability of the auditory system to differentiate close individual sinusoids presented together
+    * Vocal roughness results from nonlinear phenomena in the vocal production system and, depending on the effect, may have various physiological causes that can hardly be determined from the signal itself.
+    * A first possible cause of roughness can be laryngeal mucous lesions (nodules, polyps) or laryngeal mobility lesions, such as paralysis (Mu ˜noz et al. 2003)
+    * ==Jordi Bonada (2008): Basically, this is a pitch-synchronous analysis/resynthesis framework allowing the manipulation of sinusoidal components of a voice’s spectrum before resynthesizing it in the time domain==
+    * The approach presented here is mostly suitable for generating sounds with stable subharmonics
+    * The most computationally intensive step in Angus is estimating f0, which is necessary to set appropriate frequencies for the modulating signals. This is done with an implementation of the YIN algorithm (originally developed by de Cheveign´e and Kawahara 2002) that runs in real time (see http://forumnet.ircam.fr/product/max-sound -box-en), guaranteeing that the effect is free of audible latency
+
+![Roughness](https://files.benjagueno.cl/images/paper_gentilucci2019_fig6.png "Real-Time Roughness Method" =x400)
+
+3. M. Morise - **WORLD: A Vocoder-Based High Quality Speech Synthesis System for Real-Time Applications**
+    * The speech synthesized by most of the conventional vocoder systems is inferior to that of waveform-based systems [4]. **An exception is a vocoder based system called STRAIGHT** [5], which is capable of high-quality speech synthesis. STRAIGHT also **makes it easy to manipulate speech**, and its technology has been used in various studies.
+    * Real-time STRAIGHT [10] has been proposed as a way to meet the demand for real-time processing, **but the simplified algorithm it uses degrades the quality of the synthesized speech**
+    * TANDEM-STRAIGHT [12], [13] is supposed to be a simplified version that outputs almost all the same parameters as STRAIGHT. Although the system works well, it is hard to use it for real-time speech analysis and synthesis.
 
