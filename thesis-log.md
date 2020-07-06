@@ -20,6 +20,8 @@ Mean Opinion Score  (MOS) are a standard measure for subjective sound quality te
  ([Wiki](https://en.wikipedia.org/wiki/Mean_opinion_score))
  
  ==WORLD Vocoder ([Github](https://github.com/mmorise/World), [Link](http://www.kki.yamanashi.ac.jp/~mmorise/world/english/download.html))==
+ 
+ Mozilla Common Voice Dataset ([Link](https://discourse.mozilla.org/t/common-voice-dataset-release-mid-year-2020/62938))
 
 
 
@@ -356,7 +358,7 @@ Then, we get
 ## Week 13 (15/06/2020)
 
 1. G. Degottex - **Pitch Transposition and Breathiness Modification using a Glottal Source Model and its Adapted Vocal-Track Filter** ([Link](https://files.benjagueno.cl/papers/Degottex2011.pdf))
-    * Not in real-time
+    * **Not in real-time**
     * This paper addresses the pitch transposition and the modification of breathiness by means of an analytic description of the deterministic component of the voice source, a glottal model.
     * The model to synthesize they use is the following
 \begin{equation}
@@ -374,7 +376,7 @@ Then, we get
     * Very hard to train
     * **Parallel Wavenet** is very fast to synthesize (1 second of voice takes less than a second), but almost impossible to train if you are not Google or Apple
 
-3. M. Gentilucci - **Composing Vocal Distortion: A Tool for ==Real-Time Generation of Roughness==**
+3. M. Gentilucci - **Composing Vocal Distortion: A Tool for ==Real-Time Generation of Roughness==** ([Link](https://files.benjagueno.cl/papers/Gentilucci2019.pdf))
     * In the **spectral domain**, a rough voice is characterized by a low harmonic-to-noise ratio, with the presence of noise and subharmonics 
     * In the **time domain**, rough voices are mainly characterized by the presence of important degrees of jitter and shimmer
     * From the **perceptual point of view**, roughness is related to the ability of the auditory system to differentiate close individual sinusoids presented together
@@ -386,8 +388,33 @@ Then, we get
 
 ![Roughness](https://files.benjagueno.cl/images/paper_gentilucci2019_fig6.png "Real-Time Roughness Method" =x400)
 
-3. M. Morise - **WORLD: A Vocoder-Based High Quality Speech Synthesis System for Real-Time Applications**
+3. M. Morise - **WORLD: A Vocoder-Based High Quality Speech Synthesis System for Real-Time Applications** ([Link](https://files.benjagueno.cl/papers/Morise2016.pdf))
+
+
     * The speech synthesized by most of the conventional vocoder systems is inferior to that of waveform-based systems [4]. **An exception is a vocoder based system called STRAIGHT** [5], which is capable of high-quality speech synthesis. STRAIGHT also **makes it easy to manipulate speech**, and its technology has been used in various studies.
     * Real-time STRAIGHT [10] has been proposed as a way to meet the demand for real-time processing, **but the simplified algorithm it uses degrades the quality of the synthesized speech**
     * TANDEM-STRAIGHT [12], [13] is supposed to be a simplified version that outputs almost all the same parameters as STRAIGHT. Although the system works well, it is hard to use it for real-time speech analysis and synthesis.
 
+## Week 14 (22/06/2020)
+
+1. G. Degottex - **Mixed source model and its adapted vocal tract filter estimate for voice transformation and synthesis** ([Link](https://files.benjagueno.cl/papers/Degottex2013.pdf))
+
+
+2. Meeting 25/06
+    * WORLD citations
+    * WORLD citations in voice conversion context
+    * Check on WORLD black boxes
+
+## Week 15 (06/07/2020)
+
+1. M. Morise - **Fast and Reliable F0 Estimation Method Based on the Period Extraction of Vocal Fold Vibration of Singing Voice and Speech** ([Link](https://files.benjagueno.cl/papers/Morise2009.pdf))
+    * A fast and reliable fundamental frequency (F0) extraction method is proposed for real-time interactive applications using a singing voice
+    * In this article, a Nuttall window [8] is used as a low-pass filter with a sidelobe of about -90 dB for evaluations
+    * Fundamentalness is defined as the variance of negative and positive going zero-crossing intervals and the intervals between successive peaks and dips
+    * The best candidate is selected from the calculated fundamentalness of all the filtered signals. The lowest fundamentalness at each observation point is selected in this step
+    * There are several important parameters of the proposed method for accurate F0 extraction. Mainly, the type of low-pass filters and the number of candidate filters relate to the accuracy ofthe proposed method
+
+![DIO](https://files.benjagueno.cl/images/paper_morise2009_fig1.png "DIO method outline" =x300)
+
+1. H. Kawahara - **Using instantaneous frequency and aperiodicity detectionto estimate F0for high-quality speech synthesis** ([Link](https://files.benjagueno.cl/papers/Kawahara2016.pdf))
+    * Text2
