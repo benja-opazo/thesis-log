@@ -22,6 +22,8 @@ Mean Opinion Score  (MOS) are a standard measure for subjective sound quality te
  ==WORLD Vocoder ([Github](https://github.com/mmorise/World), [Link](http://www.kki.yamanashi.ac.jp/~mmorise/world/english/download.html))==
  
  Mozilla Common Voice Dataset ([Link](https://discourse.mozilla.org/t/common-voice-dataset-release-mid-year-2020/62938))
+ 
+ Audio Latency on Linux ([Link](https://www.mindmusiclabs.com/audio-latency-demystified-part-2-4-real-time-linux-approaches/))
 
 
 
@@ -395,6 +397,8 @@ Then, we get
     * Real-time STRAIGHT [10] has been proposed as a way to meet the demand for real-time processing, **but the simplified algorithm it uses degrades the quality of the synthesized speech**
     * TANDEM-STRAIGHT [12], [13] is supposed to be a simplified version that outputs almost all the same parameters as STRAIGHT. Although the system works well, it is hard to use it for real-time speech analysis and synthesis.
 
+![WORLD Overview](https://files.benjagueno.cl/images/paper_morise2016_fig1.png "World Overview" =x300)
+
 ## Week 14 (22/06/2020)
 
 1. G. Degottex - **Mixed source model and its adapted vocal tract filter estimate for voice transformation and synthesis** ([Link](https://files.benjagueno.cl/papers/Degottex2013.pdf))
@@ -416,5 +420,27 @@ Then, we get
 
 ![DIO](https://files.benjagueno.cl/images/paper_morise2009_fig1.png "DIO method outline" =x300)
 
-1. H. Kawahara - **Using instantaneous frequency and aperiodicity detectionto estimate F0for high-quality speech synthesis** ([Link](https://files.benjagueno.cl/papers/Kawahara2016.pdf))
-    * Text2
+2. H. Kawahara - **Using instantaneous frequency and aperiodicity detection to estimate F0 for high-quality speech synthesis** ([Link](https://files.benjagueno.cl/papers/Kawahara2016.pdf))
+    * Not in real time
+
+## Week 15 (21/07/2020)
+
+1. M. Morise - **Harvest: A high-performance fundamental frequency estimator from speech signals** ([Link](https://files.benjagueno.cl/papers/Morise2017.pdf))
+    * Not in real time
+    * Useful for Statistical Parametric Speech Synthesis (SPSS)
+
+2. M. Morise - **CheapTrick, a spectral envelope estimator for high-quality speech synthesis** ([Link](https://files.benjagueno.cl/papers/Morise2015.pdf))
+
+3. M. Morise - **Error Evaluation of an F0-Adaptive Spectral Envelope Estimator in Robustness against the Additive Noise and F0 Error** ([Link](https://files.benjagueno.cl/papers/Morise2015-2.pdf))
+
+## Week 16 (27/07/2020)
+
+> The WORLD code calculates a FFT once every N samples, [this](https://stackoverflow.com/questions/6663222/doing-fft-in-realtime) answer from stackOverflow implements a rolling FFT, although it uses a rectangular window instead of a a Hanning (Hann) window.
+
+> This [document](https://www.comm.utoronto.ca/~dimitris/ece431/slidingdft.pdf) is a tutorial of the SDFT (Sliding DFT)
+>
+ 
+1. K. Kim - **It’s About Time: Minimizing Hardware and Software Latencies in Speech Research With Real-Time Auditory Feedback** ([Link](https://files.benjagueno.cl/papers/Kim2019.pdf))
+    * It has been shown, for example, that auditory feedback delays disrupt aspects of ongoing speech production when the delay reaches 50 ms or more (Stuart et al., 2002).
+    * Additionally, studies on speech auditory–motor learning across trials have demonstrated that adaptation to frequencyshifted auditory feedback is reduced or eliminated when the feedback signal is delayed by 100 ms (Max & Maffett, 2015; Mitsuya et al., 2017; work currently in progress in our lab is testing the effect on adaptation of delays shorter than 100 ms).
+    * It has been reported that a delay greater than 25 ms can already slow down the speech rate and a delay greater than 50 ms may induce disfluencies (Stuart et al., 2002)
