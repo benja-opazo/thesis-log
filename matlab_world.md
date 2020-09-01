@@ -70,13 +70,13 @@ The candidates are then sorted, and the best candidate is fixed using a 4 step p
 
 ### Output
 
-The outputs of the algorithm are
+The outputs of the script are
 
 * ```f0_parameter```: A struct containing
-    * ```f0```: Predicted f0
+    * ```f0```: An array containing the predicted f0
     * ```f0_candidates```: A matrix containing the 7 best f0 candidates for each frame. The first row corresponds to ```f0_parameter.f0``` before it is fixed
-    * ```temporal_positions```: Positions where the algorithm was applied
-    * ```vuv```: Voiced and unvoiced sections
+    * ```temporal_positions```: An array containing the positions where the algorithm was applied
+    * ```vuv```: An array containing the positions of the voiced and unvoiced sections
 
 ## StoneMask (MatLab)
 
@@ -181,6 +181,8 @@ In the second step an approximation of the cumulative area is calculated, but we
 
 The solution is to interpolate once for each shifting ($\pm\omega_0$) and substract one from the other, this way, the interpolated arrays are shifted accordingly, and it is done for every frequency once.
 
+Note that as a result of the interpolation and this particular implementation, the output of this function has a power spectrum in the interval $[0, fs]$
+
 > The matlab scripts implements a custom ```interp1()``` function called ```interp1H()```, which is an implementation of a linear interpolation that returns 0 when the values to be interpolated are outside of the values of the known function (i.e.: extrapolation) instead of the ```NaN``` value that MatLab returns in this case
 
 
@@ -188,8 +190,35 @@ The solution is to interpolate once for each shifting ($\pm\omega_0$) and substr
 
 > This step is the heart of the algorithm, it calculates the spectral envelope by liftering it in the quefrency domain.
 
+To obtain the spectral envelope, a liftering in the quefrency domain is done as follows
 
+\begin{equation}
+     P_l(\omega) = \exp(\tilde{q}_0 \log(P(\omega)) + \tilde{q}_1 \log(P(\omega + \omega_0)P(\omega - \omega_0)))
+\end{equation}
 
+Where $P_l(\omega)$ is the output that we are looking for. and $P(\omega)$ represents the power spectrum calculated in the previous step. The script calculates the following set of equations
+
+\begin{align}
+    P_l(\omega) &= \exp(\mathcal{F} [l_s(\tau)l_q(\tau)p_s(\tau)]) \\
+    l_s(\tau) &= \frac{\sin(\pi f_0 \tau)}{\pi f_0 \tau} \\
+    l_q(\tau) &= \tilde{q}_0 + 2 \tilde{q}_1\cos(2\pi f_0 \tau) \\
+    p_s(\tau) &= \mathcal{F}^{-1}[\log(P_s(\omega))]
+\end{align}
+
+Where $\tilde{q}_0$ and $\tilde{q}_1$ are adjustable parameters of the algorithm, and in this implementation $\tilde{q}_0 = 1 - 2\tilde{q}_1$
+
+In the particular case of the script, the output of the previous step has a power spectrum in the interval $[0, fs]$, whereas the input assumes that the spectrum is in the interval $[0, 2fs]$ , but the output is trimmed to be defined in the interval $[0, fs]$.
+
+> Note that the output of this sections is in the frequency domain, not the quefrency domain
+
+### Output
+
+The output of the script is a single struct called ```spectrum_parameter```
+
+* ```spectrum_parameter```: A struct containing
+    * ```temporal_positions```: An array containing the positions where the algorithm was applied
+    * ```spectrogram```: An array containing the smoothed spectrum in the frequency domain
+    * ```fs```: A variable containing the sampling frequency
 
 ## References
 
