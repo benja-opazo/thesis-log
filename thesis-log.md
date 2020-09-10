@@ -25,6 +25,9 @@ Mean Opinion Score  (MOS) are a standard measure for subjective sound quality te
  
  Audio Latency on Linux ([Link](https://www.mindmusiclabs.com/audio-latency-demystified-part-2-4-real-time-linux-approaches/))
 
+Perceptual Evaluation of Speech Quality ([Link](https://en.wikipedia.org/wiki/Perceptual_Evaluation_of_Speech_Quality))
+
+Perceptual Voice Qualities Database (PVQD) ([Link](https://data.mendeley.com/datasets/9dz247gnyb/1))
 
 
 ## Week 1 (09/03/2020)
@@ -429,8 +432,6 @@ Then, we get
     * Not in real time
     * Useful for Statistical Parametric Speech Synthesis (SPSS)
 
-2. M. Morise - **CheapTrick, a spectral envelope estimator for high-quality speech synthesis** ([Link](https://files.benjagueno.cl/papers/Morise2015.pdf))
-
 3. M. Morise - **Error Evaluation of an F0-Adaptive Spectral Envelope Estimator in Robustness against the Additive Noise and F0 Error** ([Link](https://files.benjagueno.cl/papers/Morise2015-2.pdf))
 
 ## Week 16 (27/07/2020)
@@ -444,3 +445,31 @@ Then, we get
     * It has been shown, for example, that auditory feedback delays disrupt aspects of ongoing speech production when the delay reaches 50 ms or more (Stuart et al., 2002).
     * Additionally, studies on speech auditory–motor learning across trials have demonstrated that adaptation to frequencyshifted auditory feedback is reduced or eliminated when the feedback signal is delayed by 100 ms (Max & Maffett, 2015; Mitsuya et al., 2017; work currently in progress in our lab is testing the effect on adaptation of delays shorter than 100 ms).
     * It has been reported that a delay greater than 25 ms can already slow down the speech rate and a delay greater than 50 ms may induce disfluencies (Stuart et al., 2002)
+
+## Week 17 (03/08/2020)
+
+1. [World Vocoder (MatLab)](./gxzyEiOYT3y7Ye7JLMhPDw)
+
+## Week 18 (10/08/2020)
+
+1. M. Morise - **CheapTrick, a spectral envelope estimator for high-quality speech synthesis** ([Link](https://files.benjagueno.cl/papers/Morise2015.pdf))
+    * The concept of the algorithm is to obtain an accurate and temporally stable spectral envelope
+    * High-quality speech synthesis has recently been focused on, and several spectral envelope estimation algorithms have been proposed (Morise, 2013; Nakano and Goto, 2012) for high-quality speech synthesis.
+    * CheapTrick consists of three steps:
+        * F0-adaptive windowing,
+        * Smoothing of the power spectrum,
+        * and a liftering processing for smoothing and spectral recovery
+    * This equation shows that the overall power of the periodic signal windowed by the window is temporally stable.
+    * However, the proposed algorithm is for the voiced sound that has a period, and general vocoder processes the voiced and unvoiced sound separately. Since the processing for unvoiced sound affects the sound quality, we did not conduct the evaluation using speech including consonants to avoid the influence caused by any methods other than spectral envelope estimation. An algorithm needs to be developed to estimate the spectral envelope of consonants, and algorithms need to be evaluated with vowels and consonants.
+
+## Week 22 (07/09/2020)
+
+1. Meeting 10/09
+    * TODO:
+        * ==Agregar a la carta Gantt el detalle de los papers que me leeré en los próximos 3 meses==
+        * Revisar [PESQ](http://www.pesq.org/) o POLQA e intentar aplicarlo
+        * Revisar el código en [C del WORLD Vocoder](https://github.com/mmorise/World/tree/master/src) y ver que tan factible es hecharlo a andar
+        * ¿Es posible compensar las modificaciones de calidad vocal?
+        * Revisar el [UCLA Voice Synthesizer](https://www.uclahealth.org/head-neck-surgery/bga/software) y la bibliografía asociada. El [manual](https://www.uclahealth.org/head-neck-surgery/workfiles/Laryngeal%20Voice%20Research/Software/Analysis%20and%20Synthesis%20of%20Pathological%20Voice%20Quality.pdf) tiene conceptos útiles. Puedo inspirarme en ellos para hacer modificaciones de calidad vocal en tiempo real.
+        * Tener en cuenta el [PVQD](https://data.mendeley.com/datasets/9dz247gnyb/1) un database con voces patológicas y no patológicas con etiquetas
+        * Tener en cuenta y estudiar el [LF Synthesizer](https://ccrma.stanford.edu/~jos/SMAC03S/Liljencrantz_Fant_Derivative_Glottal_Wave.html)
