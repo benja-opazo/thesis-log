@@ -74,7 +74,7 @@ The outputs of the script are
 
 * ```f0_parameter```: A struct containing
     * ```f0```: An array containing the predicted f0
-    * ```f0_candidates```: A matrix containing the 7 best f0 candidates for each frame. The first row corresponds to ```f0_parameter.f0``` before it is fixed
+    * ```f0_candidates```: An array containing the best f0 candidates for each frame. The first row corresponds to ```f0_parameter.f0``` before it is fixed. The length of ```boundary_f0_list``` determines the number of rows of the array. 
     * ```temporal_positions```: An array containing the positions where the algorithm was applied
     * ```vuv```: An array containing the positions of the voiced and unvoiced sections
 
@@ -96,7 +96,7 @@ The ```source_object``` struct corresponds to the output of the DIO algorithm, t
 
 The algorithm defaults the ```f0``` value to ```default_f0``` if no voice is detected (when ```vuv == 0```). 
 
-## Spectrogram Calculation
+### Spectrogram Calculation
 
 > This step corresponds to the whole CheapTrick algorithm
 
@@ -219,6 +219,92 @@ The output of the script is a single struct called ```spectrum_parameter```
     * ```temporal_positions```: An array containing the positions where the algorithm was applied
     * ```spectrogram```: An array containing the smoothed spectrum in the frequency domain
     * ```fs```: A variable containing the sampling frequency
+
+## D4C (Band Aperiodicity Estimation)
+
+WIP
+
+## Get Seed Signal
+
+> This script generates the parameters for the excitation signal generation
+
+This script is based on the [Velvet Noise](http://users.spa.aalto.fi/mak/PUB/AES_Jarvelainen_velvet.pdf) and its [Frequency Domain Variant](https://arxiv.org/abs/1806.06812).
+
+The general idea is to generate a sequence of the form
+
+\begin{equation}
+    k(m) = \|mT_d + r_1(m)(T_d-1)\|
+\end{equation}
+
+Where $r_1(m)$ and $r_2(m)$ are generated from a uniform distribution in $(0,1)$, $\| \bullet \|$ returns the nearest integer, and $T_d$ represents the average pulse interval in samples. Then, a signal is generated that follows this equation
+
+\begin{equation}
+    s(n) = 
+    \begin{cases}
+        2\|r_2(m)\| - 1 &n = k(m) \\
+        0 &\text{otherwise}
+    \end{cases}
+\end{equation}
+
+The way the scripts implements it is different, but it is based on the same principle
+
+### Preprocessing
+
+The first step of the script is to calculate the parameters to be used. Some of the parameters are
+- ```fft_size```: Corresponds to the size of the ffts to be calculated. it depends on ```fs```.
+- ```noise_length```: Corresponds to the length of the velvet noise. It is the nearest power of 2 of ```fs```.
+- ```w```:
+- ```frequency_interval``` Bandwidth by which the output noise is filtered with each bandpass filter
+
+### Generate Modified Velvet Noise
+> This function generates a velvet noise of length ```noise_length```
+
+To generate the velvet noise, this script calls another script which generates a short Velvet Noise. The length of this short Velvet Noise is chosen randomly between 3 values:
+- ```short_period =  8 * round( [8, 30, 60] * fs / 48000);```
+
+In the case where ```fs = 48000```, the values are ```[64,240,480]```.
+
+The short Velvet Noises are appended one after another until the length of the long Velvet Noise is at least ```noise_length```. Then, the long Velvet Noise is trimmed to be of length ```noise_length```.
+
+The output noise is divided every ```frequency_interval``` Hertz, for example, if ```frequency_interval``` is 3000, then the noise is filtered with bandpass of bandwidth 3KHz, every 3KHz
+
+### Short Velvet Noise
+
+To generate the Short Velvet Noise, the script first generates a signal ```safety_rand``` where the first half is 2 and the second half is -2. then, it randomnly swaps samples from the signal until every sample has been swapped at least once. At this point, ```safety_rand``` is a seemingly random sequence of 2 and -2. Although, the definition of Velvet Noise is a sparse discrete signal, with many 0 values.
+
+To randomly add the missing zeroes, the output signal is a vector filled with zeroes, that randomly and sparsely picks samples from the ```safety_rand``` signal. The sparseness is defined by the ```td``` variable, which defaults to 4, that means, that in average, the distance of the pulses (non zero samples) is 4.
+
+### Pulse generation
+Falta como genera el pulso
+
+
+## Synthesis
+
+> According to the paper, in this section the vocal cord vibration is calculated on the basis of the convolution of the minimum phase response and the extracted excitation signal [1]. On the script, after obtaining the excitation signal, the waveform is calculated based on the [overlap-add methd](https://en.wikipedia.org/wiki/Overlap%E2%80%93add_method)
+
+The input variables of this script are ```source_object```, ```filter_object``` and ```seeds_signals```.
+
+Where ```source_object``` is a struct containing
+
+* ```f0```: An array containing the predicted f0
+* ```raw_f0_candidates```: An array containing the best f0 candidates for each frame. The first row corresponds to ```f0_parameter.f0``` before it is fixed. The number f0 candidates depends on the options given on the DIO script.
+* ```temporal_positions```: An array containing the positions where the algorithm was applied
+* ```vuv```: An array containing the positions of the voiced and unvoiced sections
+* ```band_aperiodicity```: An array that contains the band aperiodicity components given by the D4C script. The first row corresponds to a (need checking) ```vuv``` array with different sensibility
+
+```filter_object``` is a struct containing information about the spectral envelope. Its elements are
+- ```temporal_positions```: An array containing the positions where the algorithm was applied
+- ```spectrogram```: An array containing the smoothed spectrum in the frequency domain
+- ```fs```: A variable containing the sampling frequency
+
+The ```seed_signals``` are the parameters for excitation signal generation.
+
+
+### Excitation Signal
+
+
+
+
 
 ## References
 
